@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css" rel="stylesheet" integrity="sha384-RpX8okQqCyUNG7PlOYNybyJXYTtGQH+7rIKiVvg1DLg6jahLEk47VvpUyS+E2/uJ" crossorigin="anonymous">
+    <title>{{ detail['title'] }}</title>
+<style>
+  body {
+      background-image: url("http://www.ebcrawfordlibrary.org/images/uploads/images/1480090459_filmo.jpg");
+      background-size:100%;
+      color: #2e3538;
+  }
+
+  .positioning {
+    position:relative;
+    top:80px;
+    right:30px;
+  }
+
+  .positioning2 {
+    position:relative;
+    font-size:16px;
+    top:120px;
+    left:50px;
+    background: rgba(29,31,38,0.2);
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 15px;
+    padding-bottom: 35px;
+    border-radius: 50px;
+    border-color:#FFEA61;
+  }
+
+  select option {
+    color: #2e3538;
+  }
+
+  h1 {
+      font-size: 25px;
+      color: #091407;
+      font-family: "Brush Script MT", serif;
+  }
+
+  .rounded-img2 {
+    display: inline-block;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+    -moz-box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="main col-md-6 positioning">
+    <center><span class="rounded-img2" style="background:url( {{ imdb['Poster'] }} ) no-repeat">
+      <img src="{{ imdb['Poster'] }}" style="opacity: 0"/>
+      </span><p><br>
+
+      <font color="white">{{ rating['rating'] }} out of 5 Stars</font>
+      <form id="choose_rating" action="/rating">
+      <font color="white"><label for="submit_rating">Rate: </label></font>
+      <select id="submit_rating" name="submit_rating">
+      {% for row in range(1, 6) %}
+        <option value="{{ row }}">{{ row }}</option>
+      {% end %}
+      </select>
+      <input type="submit" id="btn_submit" value="Submit">
+      <input type="hidden" id = "movie_id" name="movie_id" value="{{ detail['movie_id'] }}">
+    </form><p><p>
+    <a href="/">Back to Search</a>
+    </center>
+    </div>
+
+    <div class="main_2 col-md-4 positioning2">
+    <center>
+      <div class="header">
+        <h1>{{ detail["title"] }}</h1>
+      </div>
+      {{ imdb['Plot'] }}<p><br>
+      <b>Genre(s): </b>
+        {% for row in sorted(genre, key=lambda x: x[0]) %}
+          {% if row == sorted(genre, key=lambda x: x[0])[-1] %}
+            {{ row['genre'] }}
+          {% end %}
+          {% if row != sorted(genre, key=lambda x: x[0])[-1] %}
+            {{ row['genre'] }},
+          {% end %}
+        {% end %}
+      </table>
+    </div>
+    </center>
+  </div>
+</body>
+</html>

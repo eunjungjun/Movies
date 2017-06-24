@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css" rel="stylesheet" integrity="sha384-RpX8okQqCyUNG7PlOYNybyJXYTtGQH+7rIKiVvg1DLg6jahLEk47VvpUyS+E2/uJ" crossorigin="anonymous">
+    <title>Movie Index</title>
+<style>
+  .scroll {
+    height:500px;
+    width:710px;
+    position:relative;
+    overflow-y: auto;
+    overflow-x:hidden;
+  }
+
+  ::-webkit-scrollbar {
+      width: 12px;
+  }
+   
+  ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 10px;
+  }
+   
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+  }
+
+  body {
+      position:absolute;
+      top:70px;
+      left:100px;
+      background-image: url("http://www.ebcrawfordlibrary.org/images/uploads/images/1480090459_filmo.jpg");
+      background-size:100%;
+      color: white;
+  }
+
+  h1 {
+      text-align: center;
+      position:absolute;
+      left:850px;
+      top:90px;
+      font-size: 125px;
+      color: #091407;
+      font-family: "Brush Script MT", serif;
+  }
+
+  table, th, td{
+    text-align: center;
+    vertical-align: center;
+    width: 700px;
+    height: 25px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th{
+      background-color: #091407;
+  }
+
+  tr{
+    background-color: #2e3538;
+  }
+
+  tr:nth-child(even) {background-color: #1d1f26}
+
+  tr:hover {background-color: #091407}
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>index of<br>movies</h1>
+    </div>
+    <div class="main scroll">
+      <table>
+        <th>Title</th>
+        <th>Year</th>
+        {% for row in sorted(result, key=lambda x: x[1]) %}
+          {% set ID = row['movie_id'] %}
+          <tr>
+          <td><a href="/detail/{{ ID }}">{{ row['title'] }}</a></td>
+          <td>{{ row['year'] }}</td>
+          </tr>
+        {% end %}
+      </table>
+    </div>
+  </div>
+</body>
+</html>
